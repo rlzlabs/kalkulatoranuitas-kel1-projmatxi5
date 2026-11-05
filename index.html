@@ -3,146 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Anuitas</title>
+    <title>Kalkulator Anuitas - Kelompok 1</title>
+    
+    <!-- Mengimpor Font 'Poppins' dari Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Font diubah total menjadi Poppins */
+            font-family: 'Poppins', sans-serif;
         }
+
+        /* Latar Belakang Gradient Biru Tua */
         body {
-            background-color: #f0f2f5;
-            color: #333;
-            padding: 20px;
+            background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #172554 100%);
+            color: #e2e8f0;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* Animasi Bintang & Bintang Jatuh */
+        .sky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.8) 100%, transparent),
+                radial-gradient(1.5px 1.5px at 30% 40%, rgba(255, 255, 255, 0.9) 100%, transparent),
+                radial-gradient(1px 1px at 60% 10%, rgba(255, 255, 255, 0.6) 100%, transparent),
+                radial-gradient(2px 2px at 80% 50%, rgba(147, 197, 253, 0.9) 100%, transparent),
+                radial-gradient(1px 1px at 90% 80%, rgba(255, 255, 255, 0.8) 100%, transparent);
+            background-size: 150px 150px;
+        }
+
+        .shooting-star {
+            position: absolute;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(125,211,252,1));
+            animation: meteor 4s linear infinite;
+            opacity: 0;
+        }
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            background: #bae6fd;
+            border-radius: 50%;
+            box-shadow: 0 0 15px 3px rgba(125, 211, 252, 0.8);
+        }
+
+        @keyframes meteor {
+            0% { transform: rotate(215deg) translateX(0); opacity: 1; }
+            30% { opacity: 1; }
+            100% { transform: rotate(215deg) translateX(-1500px); opacity: 0; }
+        }
+
+        .star-1 { top: 10%; right: 20%; animation-delay: 0s; animation-duration: 5s; }
+        .star-2 { top: -10%; right: 50%; animation-delay: 2s; animation-duration: 4s; }
+        .star-3 { top: 30%; right: -10%; animation-delay: 4s; animation-duration: 6s; }
+
         .container {
-            max-width: 900px;
-            margin: 0 auto;
+            max-width: 850px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
         }
+
         h1 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #1a365d;
+            margin-bottom: 35px;
+            background: linear-gradient(to right, #7dd3fc, #38bdf8, #0284c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 34px;
         }
-        .identitas-card {
-            background: #ffffff;
-            padding: 20px 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            color: #4a5568;
-            border-left: 5px solid #3182ce;
-        }
-        .identitas-card p {
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-        .identitas-card ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .identitas-card li {
-            padding: 4px 0;
-        }
-        .identitas-card li::before {
-            content: "• ";
-            color: #3182ce;
-            font-weight: bold;
-            display: inline-block; 
-            width: 1em;
-        }
-        .card {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+
+        /* Glassmorphism ala Claude */
+        .glass-card {
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(125, 211, 252, 0.15);
+            border-radius: 16px;
+            padding: 35px;
             margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
-        .input-group {
+
+        /* Identitas Kelompok 1 */
+        .identitas h2 {
+            color: #bae6fd;
             margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 22px;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            padding-bottom: 10px;
+        }
+        .identitas p {
+            color: #94a3b8;
+            margin-bottom: 8px;
+            font-size: 15px;
+            font-weight: 300;
+        }
+        .identitas strong {
+            color: #e0f2fe;
+            font-weight: 500;
+        }
+        .identitas ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+        .identitas li {
+            color: #e0f2fe;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-weight: 300;
+        }
+        .identitas li::before {
+            content: "✦";
+            color: #38bdf8;
+            font-size: 14px;
+            margin-right: 10px;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+        }
+
+        /* Form Input */
+        .input-group {
+            margin-bottom: 25px;
         }
         .input-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             font-weight: 600;
-            color: #4a5568;
         }
         .input-group input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
+            padding: 16px;
+            background: rgba(2, 6, 23, 0.6);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            color: #fff;
             font-size: 16px;
+            font-weight: 400;
+            transition: all 0.3s ease;
         }
+        .input-group input:focus {
+            outline: none;
+            border-color: #38bdf8;
+            background: rgba(2, 6, 23, 0.8);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+        .input-group input::placeholder {
+            color: #475569;
+            font-weight: 300;
+        }
+
+        /* Tombol */
         button {
             width: 100%;
-            padding: 14px;
-            background: #3182ce;
-            color: #fff;
+            padding: 18px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: #ffffff;
             border: none;
-            border-radius: 6px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 600;
+            letter-spacing: 1.5px;
             cursor: pointer;
-            transition: background 0.3s;
+            box-shadow: 0 8px 25px rgba(2, 132, 199, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
             margin-top: 10px;
         }
         button:hover {
-            background: #2b6cb0;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(2, 132, 199, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
+        button:active {
+            transform: translateY(1px);
+        }
+
+        /* Area Hasil */
         .hidden {
             display: none;
         }
-        h2 {
+        .result-card h2 {
             text-align: center;
-            color: #2f855a;
-            margin-bottom: 20px;
+            color: #bae6fd;
+            margin-bottom: 25px;
+            font-weight: 500;
         }
         .table-responsive {
             overflow-x: auto;
         }
+
         table {
             width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-radius: 8px;
-            overflow: hidden;
+            border-collapse: separate;
+            border-spacing: 0;
+            font-size: 14px;
         }
         th, td {
-            padding: 15px;
+            padding: 16px;
             text-align: right;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid rgba(125, 211, 252, 0.1);
+            font-weight: 300;
         }
         th:first-child, td:first-child {
             text-align: center;
         }
         th {
-            background-color: #3182ce;
-            color: white;
+            color: #38bdf8;
             font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            background: rgba(2, 6, 23, 0.4);
         }
-        tr:nth-child(even) {
-            background-color: #f7fafc;
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.03);
         }
-        tr:hover {
-            background-color: #edf2f7;
+        tr:last-child td {
+            border-bottom: none;
         }
     </style>
 </head>
 <body>
+
+    <!-- Latar belakang animasi bintang jatuh -->
+    <div class="sky">
+        <div class="shooting-star star-1"></div>
+        <div class="shooting-star star-2"></div>
+        <div class="shooting-star star-3"></div>
+    </div>
+
     <div class="container">
-        <h1>Kalkulator Anuitas</h1>
-        
-       <div class="identitas-card">
-            <h2 style="text-align: left; color: #1a365d; margin-bottom: 10px;">Tugas Akhir Semester 3</h2>
-            <p><strong>Pelajaran:</strong> Matematika</p>
-            <p><strong>Materi:</strong> Anuitas</p>
-            <p><strong>Projek:</strong> Kalkulator Anuitas</p>
-            <p><strong>Kelas:</strong> XI-5</p>
-            <p><strong>Guru:</strong> Dewi Lestari, S.Pd.</p>
-            <p><strong>Kelompok 1</strong></p>
+        <h1>KALKULATOR ANUITAS</h1>
+
+        <!-- Identitas Kelompok 1 -->
+        <div class="glass-card identitas">
+            <h2>Tugas Akhir Semester 3</h2>
+            <p>Pelajaran: <strong>Matematika</strong></p>
+            <p>Materi: <strong>Anuitas</strong></p>
+            <p>Kelas: <strong>XI-5</strong></p>
+            <p>Guru Pembimbing: <strong>Dewi Lestari, S.Pd.</strong></p>
+            <br>
+            <p><strong>Anggota Kelompok 1:</strong></p>
             <ul>
                 <li>Muhammad Bilka Rizqan Reghanya (22)</li>
                 <li>Muhammad Naufal Abdillah (23)</li>
@@ -153,33 +283,33 @@
             </ul>
         </div>
 
-        <div class="card">
+        <div class="glass-card">
             <div class="input-group">
                 <label>Jumlah Pinjaman / Modal (Rp)</label>
                 <input type="number" id="pinjaman" placeholder="Contoh: 10000000">
             </div>
             <div class="input-group">
-                <label>Suku Bunga per Bulan (%)</label>
+                <label>Suku Bunga Per Bulan (%)</label>
                 <input type="number" id="bunga" placeholder="Contoh: 2">
             </div>
             <div class="input-group">
-                <label>Jangka Waktu / Tenor (Bulan)</label>
+                <label>Tenor / Jangka Waktu (Bulan)</label>
                 <input type="number" id="tenor" placeholder="Contoh: 12">
             </div>
-            <button onclick="hitungAnuitas()">Hitung Anuitas</button>
+            <button onclick="hitungAnuitas()">HITUNG ANUITAS</button>
         </div>
 
-        <div id="result-section" class="hidden">
-            <h2>Anuitas per Bulan: <span id="hasil-anuitas"></span></h2>
+        <div id="result-section" class="glass-card hidden">
+            <h2>Besar Anuitas: <span id="hasil-anuitas"></span></h2>
             <div class="table-responsive">
                 <table id="tabel-angsuran">
                     <thead>
                         <tr>
-                            <th>Bulan ke-</th>
-                            <th>Sisa Pinjaman Awal</th>
+                            <th>Bulan</th>
+                            <th>Pinjaman Awal</th>
                             <th>Bunga</th>
                             <th>Angsuran Pokok</th>
-                            <th>Sisa Pinjaman Akhir</th>
+                            <th>Sisa Pinjaman</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
