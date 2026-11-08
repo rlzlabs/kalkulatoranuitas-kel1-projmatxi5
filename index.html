@@ -15,7 +15,6 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            /* Font diubah total menjadi Poppins */
             font-family: 'Poppins', sans-serif;
         }
 
@@ -76,6 +75,12 @@
             100% { transform: rotate(215deg) translateX(-1500px); opacity: 0; }
         }
 
+        /* Navigasi Page Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .star-1 { top: 10%; right: 20%; animation-delay: 0s; animation-duration: 5s; }
         .star-2 { top: -10%; right: 50%; animation-delay: 2s; animation-duration: 4s; }
         .star-3 { top: 30%; right: -10%; animation-delay: 4s; animation-duration: 6s; }
@@ -85,6 +90,10 @@
             width: 100%;
             position: relative;
             z-index: 2;
+        }
+
+        .page {
+            animation: fadeIn 0.5s ease forwards;
         }
 
         h1 {
@@ -110,8 +119,8 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
-        /* Identitas Kelompok 1 */
-        .identitas h2 {
+        /* Teks & Identitas */
+        .glass-card h2 {
             color: #bae6fd;
             margin-bottom: 15px;
             font-weight: 600;
@@ -119,13 +128,15 @@
             border-bottom: 1px solid rgba(56, 189, 248, 0.2);
             padding-bottom: 10px;
         }
-        .identitas p {
+        .glass-card p {
             color: #94a3b8;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-size: 15px;
             font-weight: 300;
+            line-height: 1.6;
+            text-align: justify;
         }
-        .identitas strong {
+        .glass-card strong {
             color: #e0f2fe;
             font-weight: 500;
         }
@@ -141,10 +152,10 @@
             font-weight: 300;
         }
         .identitas li::before {
-            content: "✦";
+            content: "❯";
             color: #38bdf8;
             font-size: 14px;
-            margin-right: 10px;
+            margin-right: 12px;
             text-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
         }
 
@@ -178,12 +189,8 @@
             background: rgba(2, 6, 23, 0.8);
             box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
         }
-        .input-group input::placeholder {
-            color: #475569;
-            font-weight: 300;
-        }
 
-        /* Tombol */
+        /* Tombol Utama */
         button {
             width: 100%;
             padding: 18px;
@@ -207,20 +214,62 @@
             transform: translateY(1px);
         }
 
-        /* Area Hasil */
-        .hidden {
-            display: none;
+        /* Tombol Kembali */
+        .btn-kembali {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: none;
+            margin-bottom: 20px;
+            padding: 12px;
+            width: auto;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
-        .result-card h2 {
+        .btn-kembali:hover {
+            background: rgba(30, 41, 59, 0.8);
+            border-color: #38bdf8;
+        }
+
+        /* Layout 3 Kotak Hasil (Summary Grid) */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .summary-box {
+            background: rgba(2, 6, 23, 0.5);
+            border: 1px solid rgba(125, 211, 252, 0.15);
+            border-radius: 12px;
+            padding: 20px;
             text-align: center;
-            color: #bae6fd;
-            margin-bottom: 25px;
-            font-weight: 500;
+        }
+        .summary-box p {
+            color: #94a3b8;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        .summary-box h3 {
+            color: #e0f2fe;
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(to right, #7dd3fc, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Area Hasil & Tabel */
+        .hidden {
+            display: none !important;
         }
         .table-responsive {
             overflow-x: auto;
         }
-
         table {
             width: 100%;
             border-collapse: separate;
@@ -264,77 +313,149 @@
     <div class="container">
         <h1>KALKULATOR ANUITAS</h1>
 
-        <!-- Identitas Kelompok 1 -->
-        <div class="glass-card identitas">
-            <h2>Tugas Akhir Semester 3</h2>
-            <p>Pelajaran: <strong>Matematika</strong></p>
-            <p>Materi: <strong>Anuitas</strong></p>
-            <p>Kelas: <strong>XI-5</strong></p>
-            <p>Guru Pembimbing: <strong>Dewi Lestari, S.Pd.</strong></p>
-            <br>
-            <p><strong>Anggota Kelompok 1:</strong></p>
-            <ul>
-                <li>Muhammad Bilka Rizqan Reghanya (22)</li>
-                <li>Muhammad Naufal Abdillah (23)</li>
-                <li>Naufal Nazmi Arrafif Salam (26)</li>
-                <li>Rayyan Farras (30)</li>
-                <li>Ridwa Zulfa Zakiyya (34)</li>
-                <li>Sausan Muthmainnah (36)</li>
-            </ul>
+        <!-- ================= HALAMAN 1 (Home) ================= -->
+        <div id="page-home" class="page">
+            
+            <!-- Identitas Kelompok 1 -->
+            <div class="glass-card identitas">
+                <h2>Laporan Tugas Akhir Semester 3</h2>
+                <p>Pelajaran: <strong>Matematika</strong></p>
+                <p>Materi: <strong>Anuitas</strong></p>
+                <p>Kelas: <strong>XI-5</strong></p>
+                <p>Guru Pembimbing: <strong>Dewi Lestari, S.Pd.</strong></p>
+                <br>
+                <p><strong>Anggota Kelompok 1:</strong></p>
+                <ul>
+                    <li>Muhammad Bilka Rizqan Reghanya (22)</li>
+                    <li>Muhammad Naufal Abdillah (23)</li>
+                    <li>Naufal Nazmi Arrafif Salam (26)</li>
+                    <li>Rayyan Farras (30)</li>
+                    <li>Ridwa Zulfa Zakiyya (34)</li>
+                    <li>Sausan Muthmainnah (36)</li>
+                </ul>
+            </div>
+
+            <!-- Pengertian & Fungsi -->
+            <div class="glass-card">
+                <h2>Apa itu Anuitas?</h2>
+                <p><strong>Anuitas</strong> adalah sejumlah pembayaran atau penerimaan yang besarnya sama dan dibayarkan secara berkala dalam jangka waktu tertentu. Dalam konteks sistem kredit, anuitas adalah cicilan bulanan tetap yang sudah mencakup angsuran pokok dan bunga pinjaman.</p>
+                <br>
+                <h2>Fungsi Kalkulator Ini</h2>
+                <p>Kalkulator ini dirancang untuk memudahkan perhitungan angsuran secara otomatis dan presisi. Dengan memasukkan modal awal, persentase bunga, dan tenor waktu, sistem akan langsung menyajikan <strong>Besar Anuitas, Total Pembayaran, Total Bunga</strong>, beserta tabel rincian penyusutan hutang setiap bulannya tanpa risiko salah hitung (<i>human error</i>).</p>
+                
+                <button style="margin-top: 25px;" onclick="bukaKalkulator()">MASUK KE KALKULATOR ❯</button>
+            </div>
         </div>
 
-        <div class="glass-card">
-            <div class="input-group">
-                <label>Jumlah Pinjaman / Modal (Rp)</label>
-                <input type="number" id="pinjaman" placeholder="Contoh: 10000000">
+        <!-- ================= HALAMAN 2 (Kalkulator & Hasil) ================= -->
+        <div id="page-kalkulator" class="page hidden">
+            
+            <button class="btn-kembali" onclick="kembaliKeHome()">❮ Kembali ke Beranda</button>
+
+            <!-- Form Input -->
+            <div class="glass-card">
+                <div class="input-group">
+                    <label>Jumlah Pinjaman / Modal (Rp)</label>
+                    <input type="number" id="pinjaman" placeholder="Contoh: 10000000">
+                </div>
+                <div class="input-group">
+                    <label>Suku Bunga Per Bulan (%)</label>
+                    <input type="number" id="bunga" placeholder="Contoh: 2">
+                </div>
+                <div class="input-group">
+                    <label>Tenor / Jangka Waktu (Bulan)</label>
+                    <input type="number" id="tenor" placeholder="Contoh: 12">
+                </div>
+                <button onclick="hitungAnuitas()">HITUNG ANUITAS</button>
             </div>
-            <div class="input-group">
-                <label>Suku Bunga Per Bulan (%)</label>
-                <input type="number" id="bunga" placeholder="Contoh: 2">
+
+            <!-- Area Hasil (Summary & Tabel) -->
+            <div id="result-section" class="glass-card hidden">
+                <h2>Ringkasan Perhitungan</h2>
+                
+                <!-- 3 Kotak Summary -->
+                <div class="summary-grid">
+                    <div class="summary-box">
+                        <p>Besar Anuitas (Per Bulan)</p>
+                        <h3 id="hasil-anuitas">Rp 0</h3>
+                    </div>
+                    <div class="summary-box">
+                        <p>Total Pembayaran</p>
+                        <h3 id="hasil-total-bayar">Rp 0</h3>
+                    </div>
+                    <div class="summary-box">
+                        <p>Total Bunga Dibayarkan</p>
+                        <h3 id="hasil-total-bunga">Rp 0</h3>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="tabel-angsuran">
+                        <thead>
+                            <tr>
+                                <th>Bulan</th>
+                                <th>Pinjaman Awal</th>
+                                <th>Bunga</th>
+                                <th>Angsuran Pokok</th>
+                                <th>Sisa Pinjaman</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
-            <div class="input-group">
-                <label>Tenor / Jangka Waktu (Bulan)</label>
-                <input type="number" id="tenor" placeholder="Contoh: 12">
-            </div>
-            <button onclick="hitungAnuitas()">HITUNG ANUITAS</button>
         </div>
 
-        <div id="result-section" class="glass-card hidden">
-            <h2>Besar Anuitas: <span id="hasil-anuitas"></span></h2>
-            <div class="table-responsive">
-                <table id="tabel-angsuran">
-                    <thead>
-                        <tr>
-                            <th>Bulan</th>
-                            <th>Pinjaman Awal</th>
-                            <th>Bunga</th>
-                            <th>Angsuran Pokok</th>
-                            <th>Sisa Pinjaman</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
+    <!-- Logika JavaScript -->
     <script>
+        // Fungsi Navigasi Halaman
+        function bukaKalkulator() {
+            document.getElementById('page-home').classList.add('hidden');
+            document.getElementById('page-kalkulator').classList.remove('hidden');
+            // Scroll ke atas saat ganti halaman
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function kembaliKeHome() {
+            document.getElementById('page-kalkulator').classList.add('hidden');
+            document.getElementById('page-home').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Fungsi Perhitungan Utama
         function hitungAnuitas() {
             const pinjaman = parseFloat(document.getElementById('pinjaman').value);
             const bungaPersen = parseFloat(document.getElementById('bunga').value);
             const tenor = parseInt(document.getElementById('tenor').value);
 
+            // Validasi Input
             if (isNaN(pinjaman) || isNaN(bungaPersen) || isNaN(tenor) || pinjaman <= 0 || bungaPersen <= 0 || tenor <= 0) {
                 alert("Harap masukkan angka yang valid dan lebih dari 0");
                 return;
             }
 
             const i = bungaPersen / 100;
+            
+            // 1. Menghitung Besar Anuitas
             const anuitas = (pinjaman * i) / (1 - Math.pow(1 + i, -tenor));
+            
+            // 2. Menghitung Total Pembayaran
+            const totalPembayaran = anuitas * tenor;
 
+            // 3. Menghitung Total Bunga
+            const totalBunga = totalPembayaran - pinjaman;
+
+            // Menampilkan hasil ke Ringkasan (3 Kotak)
             document.getElementById('hasil-anuitas').innerText = formatRupiah(anuitas);
+            document.getElementById('hasil-total-bayar').innerText = formatRupiah(totalPembayaran);
+            document.getElementById('hasil-total-bunga').innerText = formatRupiah(totalBunga);
+            
+            // Tampilkan section hasil
             document.getElementById('result-section').classList.remove('hidden');
 
+            // Membangun Tabel Angsuran
             const tbody = document.querySelector('#tabel-angsuran tbody');
             tbody.innerHTML = '';
 
@@ -345,6 +466,7 @@
                 const pokokBulanIni = anuitas - bungaBulanIni;
                 let sisaAkhir = sisaPinjaman - pokokBulanIni;
 
+                // Membulatkan sisa akhir yang sangat kecil karena desimal
                 if (Math.abs(sisaAkhir) < 1) {
                     sisaAkhir = 0;
                 }
@@ -363,6 +485,7 @@
             }
         }
 
+        // Fungsi Format Mata Uang Rupiah
         function formatRupiah(angka) {
             return new Intl.NumberFormat('id-ID', { 
                 style: 'currency', 
